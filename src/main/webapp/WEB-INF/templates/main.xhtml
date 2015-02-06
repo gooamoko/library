@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <h:head>
+    <title>Каталог электронных изданий</title>
+    <link href="#{request.contextPath}/css/main.css" rel="stylesheet" type="text/css" />
+  </h:head>
+  <h:body>
+    <div id="top-panel">
+      <!-- Top menu -->
+      <div id="top-menu">
+        <ul>
+          <li><a href="#">Справка</a>
+            <ul>
+              <li><h:link value="О проекте" outcome="/about" /></li>
+            </ul>
+          </li>
+          <li><a href="#">Данные</a>
+            <ul>
+              <li><h:link value="Персоны" outcome="/persons" /></li>
+            </ul>
+          </li>
+          <li>
+            <h:link rendered="#{not sessionMB.logged}" value="Вход" outcome="/loginform" />
+            <h:form  rendered="#{sessionMB.logged}">
+              <h:commandLink value="Выход" action="#{sessionMB.doLogout()}" />
+            </h:form>
+          </li>
+          <li>
+            <h:link value="#{sessionMB.basketLabel}" outcome="/order" />
+          </li>
+        </ul>
+      </div>
+      <!-- End top menu -->
+    </div>
+    <div id="container">
+      <div id="content">
+        <h:messages id="globalMessages" globalOnly="true" class="errorMessage" />
+        <ui:insert name="content">
+          Это место свободно для вашей рекламы.
+        </ui:insert>
+      </div>
+      <div id="footer">
+        <hr/>
+        <!-- bottom menu, etc -->
+      </div>
+    </div>
+  </h:body>
+</html>
