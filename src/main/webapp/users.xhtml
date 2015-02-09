@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+  <ui:composition template="/WEB-INF/templates/main.xhtml">
+    <ui:define name="content">
+      <h:panelGroup layout="block" rendered="#{usersMB.browse}">
+        <!-- List -->
+        <h2>Пользователи</h2>
+        <h:form>
+          <div class="buttons"><h:commandButton value="Добавить" action="#{usersMB.add()}" /></div>
+        </h:form>
+        <h:form id="listForm" rendered="#{not empty usersMB.users}">
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th width="80%">Фамилия Имя Отчество</th>
+                <th width="20%">Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ui:repeat value="#{usersMB.users}" var="user">
+                <tr>
+                  <td>
+                    #{user.fullName}
+                  </td>
+                  <td>
+                    <h:commandLink class="action" value="Изменить" action="#{usersMB.edit(user)}" />
+                    <h:commandLink class="action" value="Пароль" action="#{usersMB.details(user)}" />
+                    <h:commandLink class="action" value="Удалить" action="#{usersMB.delete(user)}" />
+                  </td>
+                </tr>
+              </ui:repeat>
+            </tbody>
+          </table>
+        </h:form>
+        <h:panelGroup rendered="#{empty usersMB.users}">
+          <p>На данный момент нет ни одной записи.</p>
+        </h:panelGroup>
+        <h:form>
+          <div class="buttons"><h:commandButton value="Добавить" action="#{usersMB.add()}" /></div>
+        </h:form>
+      </h:panelGroup>
+      <h:panelGroup layout="block" rendered="#{usersMB.edit}">
+        <!-- Edit -->
+        <h2>Редактирование пользователя</h2>
+        <h:form>
+          <h:panelGroup rendered ="#{usersMB.item.id > 0}">
+            <h3>#{usersMB.item.login}</h3>
+          </h:panelGroup>
+          <h:outputText value="Фамилия Имя Отчество" /><br />
+          <h:inputText value="#{usersMB.item.fullName}" class="textEdit" /><p />
+          <h:panelGroup rendered ="#{usersMB.item.id == 0}">
+            <h:outputText value="Логин" /><br />
+            <h:inputText value="#{usersMB.item.login}" class="textEdit" /><p />
+            <h:outputText value="Пароль" /><br />
+            <h:inputSecret value="#{usersMB.item.password}" class="textEdit" /><p />
+            <h:outputText value="Подтверждение" /><br />
+            <h:inputSecret value="#{usersMB.item.confirm}" class="textEdit" /><p />
+          </h:panelGroup>
+          <div class="buttons">
+            <h:commandButton value="Сохранить" action="#{usersMB.save()}" />
+            <h:commandButton value="Отменить" action="#{usersMB.cancel()}" />
+          </div>
+        </h:form>
+      </h:panelGroup>
+      <h:panelGroup layout="block" rendered="#{usersMB.delete}">
+        <!-- Delete -->
+        <h2>Удаление пользователя</h2>
+        <h:form>
+          <p>Пользователь "#{usersMB.item.fullName}" будет удален!</p>
+          <div class="buttons">
+            <h:commandButton value="Удалить" action="#{usersMB.confirmDelete()}" />
+            <h:commandButton value="Отменить" action="#{usersMB.cancel()}" />
+          </div>
+        </h:form>
+      </h:panelGroup>
+      <h:panelGroup layout="block" rendered="#{usersMB.details}">
+        <!-- Details -->
+        <h2>Смена пароля пользователя</h2>
+        <h:form>
+          <h3>#{usersMB.item.fullName}</h3>
+          <h:outputText value="Пароль" /><br />
+          <h:inputSecret value="#{usersMB.item.password}" class="textEdit" /><p />
+          <h:outputText value="Подтверждение" /><br />
+          <h:inputSecret value="#{usersMB.item.confirm}" class="textEdit" /><p />
+          <div class="buttons">
+            <h:commandButton value="Сохранить" action="#{usersMB.changePassword()}" />
+            <h:commandButton value="Отмена" action="#{usersMB.cancel()}" />
+          </div>
+        </h:form>
+      </h:panelGroup>
+    </ui:define>
+  </ui:composition>
+</html>

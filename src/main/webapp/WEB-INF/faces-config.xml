@@ -6,13 +6,17 @@
 
   <managed-bean>
     <managed-bean-name>sessionMB</managed-bean-name>
-    <managed-bean-class>ru.gooamoko.bookshop.jsf.SessionMB</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
+    <managed-bean-class>ru.edu.pgtk.library.jsf.SessionMB</managed-bean-class>
+  
+    <managed-bean-scope>session</managed-bean-scope></managed-bean>
   <managed-bean>
-    <managed-bean-name>personsMB</managed-bean-name>
-    <managed-bean-class>ru.gooamoko.bookshop.jsf.PersonsMB</managed-bean-class>
-    <managed-bean-scope>view</managed-bean-scope>
-  </managed-bean>
-    
+    <managed-bean-name>usersMB</managed-bean-name>
+    <managed-bean-class>ru.edu.pgtk.library.jsf.UsersMB</managed-bean-class>
+  
+    <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>categoriesMB</managed-bean-name>
+        <managed-bean-class>ru.edu.pgtk.library.jsf.CategoriesMB</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

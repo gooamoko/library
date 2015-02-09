@@ -18,19 +18,20 @@
               <li><h:link value="О проекте" outcome="/about" /></li>
             </ul>
           </li>
-          <li><a href="#">Данные</a>
+          <h:panelGroup rendered="#{sessionMB.logged}">
+          <li><a href="#">Ресурсы</a>
             <ul>
-              <li><h:link value="Персоны" outcome="/persons" /></li>
+              <li><h:link value="Категории" outcome="/categories" /></li>
+              <li><h:link value="Публикации" outcome="/publications" /></li>
             </ul>
           </li>
+          </h:panelGroup>
+          <li><h:link rendered="#{sessionMB.admin}" value="Пользователи" outcome="/users" /></li>
           <li>
             <h:link rendered="#{not sessionMB.logged}" value="Вход" outcome="/loginform" />
             <h:form  rendered="#{sessionMB.logged}">
               <h:commandLink value="Выход" action="#{sessionMB.doLogout()}" />
             </h:form>
-          </li>
-          <li>
-            <h:link value="#{sessionMB.basketLabel}" outcome="/order" />
           </li>
         </ul>
       </div>
