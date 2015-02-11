@@ -1,12 +1,15 @@
 package ru.edu.pgtk.library.entity;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
@@ -25,6 +28,14 @@ public class Publication implements Serializable {
     
     @Column(name = "pub_description", length = 255)
     private String description;
+    
+    @Column(name = "pub_data", nullable = false)
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
+    private byte[] data;
+    
+    @Column(name = "pub_contenttype", nullable = false)
+    private String contentType;
     
     @ManyToOne
     @JoinColumn(name = "pub_usrcode", nullable = false)
@@ -88,4 +99,20 @@ public class Publication implements Serializable {
     public void setCategoryCode(int categoryCode) {
         this.categoryCode = categoryCode;
     }
+
+  public byte[] getData() {
+    return data;
+  }
+
+  public void setData(byte[] data) {
+    this.data = data;
+  }
+
+  public String getContentType() {
+    return contentType;
+  }
+
+  public void setContentType(String contentType) {
+    this.contentType = contentType;
+  }
 }

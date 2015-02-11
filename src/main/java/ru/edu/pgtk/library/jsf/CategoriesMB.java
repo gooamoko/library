@@ -1,9 +1,13 @@
 package ru.edu.pgtk.library.jsf;
 
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import ru.edu.pgtk.library.ejb.CategoriesEJB;
 import ru.edu.pgtk.library.entity.Category;
 
+@ManagedBean(name = "categoriesBean")
+@ViewScoped
 public class CategoriesMB extends GenericBean<Category> {
   
   @EJB

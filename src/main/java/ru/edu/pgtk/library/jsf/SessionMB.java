@@ -2,12 +2,16 @@ package ru.edu.pgtk.library.jsf;
 
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import ru.edu.pgtk.library.ejb.UsersEJB;
 import ru.edu.pgtk.library.entity.User;
 
 /**
  * Сессионный бин, который будет хранить корзину и т.п.
  */
+@ManagedBean(name = "sessionMB")
+@SessionScoped
 public class SessionMB implements Serializable {
 
   private transient User user;

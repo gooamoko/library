@@ -3,11 +3,13 @@ package ru.edu.pgtk.library.jsf;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import ru.edu.pgtk.library.ejb.UsersEJB;
 import ru.edu.pgtk.library.entity.User;
 
-@Named(value = "personsMB")
+@ManagedBean(name = "personsMB")
+@ViewScoped
 public class UsersMB extends GenericBean<User> implements Serializable {
 
   @EJB
