@@ -37,6 +37,9 @@ public class Publication implements Serializable {
     @Column(name = "pub_contenttype", nullable = false)
     private String contentType;
     
+    @Column(name = "pub_filename", nullable = false, length = 255)
+    private String fileName;
+    
     @ManyToOne
     @JoinColumn(name = "pub_usrcode", nullable = false)
     private User user;
@@ -114,5 +117,13 @@ public class Publication implements Serializable {
 
   public void setContentType(String contentType) {
     this.contentType = contentType;
+  }
+
+  public String getFileName() {
+    return fileName;
+  }
+
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
   }
 }

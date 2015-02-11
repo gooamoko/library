@@ -7,8 +7,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import ru.edu.pgtk.library.ejb.PublicationsEJB;
@@ -29,11 +29,13 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
     // Get the FacesContext
     FacesContext facesContext = FacesContext.getCurrentInstance();
     // Get HTTP response
-    HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+    ExternalContext ec = facesContext.getExternalContext();
     // Set response headers
-    response.reset();   // Reset the response in the first place
-    response.setHeader("Content-Type", item.getContentType());  // Set only the content type
-    try (OutputStream responseOutputStream = response.getOutputStream()) {
+    ec.responseReset();   // Reset the response in the first place
+    ec.setResponseContentType(item.getContentType());  // Set only the content type
+    // Установка данного заголовка будет иннициировать процесс скачки файла вместо его отображения в браузере.
+    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + item.getFileName() + "\"");
+    try (OutputStream responseOutputStream = ec.getResponseOutputStream()) {
       responseOutputStream.write(item.getData());
       responseOutputStream.flush();
     } catch (IOException e) {
@@ -74,6 +76,7 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
       if ((null != item) && edit) {
         item.setData(IOUtils.toByteArray(data.getInputStream()));
         item.setContentType(data.getContentType());
+        item.setFileName(data.getSubmittedFileName());
         ejb.save(item);
         resetState();
       }
