@@ -1,6 +1,5 @@
 package ru.edu.pgtk.library.jsf;
 
-import static com.sun.javafx.logging.PulseLogger.addMessage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
