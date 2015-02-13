@@ -1,15 +1,10 @@
 package ru.edu.pgtk.library.jsf;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.persistence.Transient;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import ru.edu.pgtk.library.ejb.PublicationsEJB;
@@ -33,25 +28,6 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
     return !((null == item.getFileName()) || (item.getFileName().isEmpty()));
   }
   
-  public void download(Publication item) throws IOException {
-    // Get the FacesContext
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    // Get HTTP response
-    ExternalContext ec = facesContext.getExternalContext();
-    // Set response headers
-    ec.responseReset();   // Reset the response in the first place
-    ec.setResponseContentType(item.getContentType());  // Set only the content type
-    // Установка данного заголовка будет иннициировать процесс скачки файла вместо его отображения в браузере.
-    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + item.getFileName() + "\"");
-    try (OutputStream responseOutputStream = ec.getResponseOutputStream()) {
-      responseOutputStream.write(item.getData());
-      responseOutputStream.flush();
-    } catch (IOException e) {
-      addMessage(e);
-    }
-    facesContext.responseComplete();
-  }
-
   @Override
   public void add() {
     if (null != session) {
