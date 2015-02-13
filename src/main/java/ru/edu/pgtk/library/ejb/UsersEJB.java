@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import ru.edu.pgtk.library.entity.User;
 
 @Stateless
-@Named("personsEJB")
+@Named("usersEJB")
 public class UsersEJB {
   
   @PersistenceContext(unitName = "defaultPU")

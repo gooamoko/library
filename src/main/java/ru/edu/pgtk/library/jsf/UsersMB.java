@@ -8,7 +8,7 @@ import javax.faces.bean.ViewScoped;
 import ru.edu.pgtk.library.ejb.UsersEJB;
 import ru.edu.pgtk.library.entity.User;
 
-@ManagedBean(name = "personsMB")
+@ManagedBean(name = "usersMB")
 @ViewScoped
 public class UsersMB extends GenericBean<User> implements Serializable {
 

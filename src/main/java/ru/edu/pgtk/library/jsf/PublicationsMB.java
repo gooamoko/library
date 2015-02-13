@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.persistence.Transient;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import ru.edu.pgtk.library.ejb.PublicationsEJB;
@@ -25,6 +26,13 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
   private SessionMB session;
   private Part data;
 
+  public boolean isCanDownload() {
+    if (null == item) {
+      return false;
+    }
+    return !((null == item.getFileName()) || (item.getFileName().isEmpty()));
+  }
+  
   public void download(Publication item) throws IOException {
     // Get the FacesContext
     FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -51,6 +59,8 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
       if (null != user) {
         item = new Publication();
         item.setUser(user);
+        item.setFileName("");
+        item.setContentType("");
         edit = true;
       } else {
         addMessage("Вы не можете добавить публикацию!");
@@ -59,7 +69,7 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
       addMessage("Проблема с получением данных из сессионного компонента!");
     }
   }
-
+  
   public void confirmDelete() {
     try {
       if ((null != item) && delete) {
@@ -74,9 +84,11 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
   public void save() {
     try {
       if ((null != item) && edit) {
-        item.setData(IOUtils.toByteArray(data.getInputStream()));
-        item.setContentType(data.getContentType());
-        item.setFileName(data.getSubmittedFileName());
+        if (null != data) {
+          item.setData(IOUtils.toByteArray(data.getInputStream()));
+          item.setContentType(data.getContentType());
+          item.setFileName(data.getSubmittedFileName());
+        }
         ejb.save(item);
         resetState();
       }

@@ -18,90 +18,90 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "publications")
 public class Publication implements Serializable {
-    @Id
-    @Column(name = "pub_pcode")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
-    @Column(name = "pub_name", nullable = false, length = 128)
-    private String name;
-    
-    @Column(name = "pub_description", length = 255)
-    private String description;
-    
-    @Column(name = "pub_data", nullable = false)
-    @Basic(fetch = FetchType.LAZY)
-    @Lob
-    private byte[] data;
-    
-    @Column(name = "pub_contenttype", nullable = false)
-    private String contentType;
-    
-    @Column(name = "pub_filename", nullable = false, length = 255)
-    private String fileName;
-    
-    @ManyToOne
-    @JoinColumn(name = "pub_usrcode", nullable = false)
-    private User user;
-    
-    @ManyToOne
-    @JoinColumn(name = "pub_catcode", nullable = false)
-    private Category category;
-    
-    @Transient
-    private int categoryCode;
-    
-    @PostLoad
-    private void updateCode() {
-      if (null != category) {
-          categoryCode = category.getId();
-      }  
-    }
+  @Id
+  @Column(name = "pub_pcode")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    public int getId() {
-        return id;
-    }
+  @Column(name = "pub_name", nullable = false, length = 128)
+  private String name;
 
-    public String getName() {
-        return name;
-    }
+  @Column(name = "pub_description", length = 255)
+  private String description;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  @Column(name = "pub_data", nullable = false)
+  @Basic(fetch = FetchType.LAZY)
+  @Lob
+  private byte[] data;
 
-    public String getDescription() {
-        return description;
-    }
+  @Column(name = "pub_contenttype", nullable = false)
+  private String contentType;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  @Column(name = "pub_filename", nullable = false, length = 255)
+  private String fileName;
 
-    public User getUser() {
-        return user;
-    }
+  @ManyToOne
+  @JoinColumn(name = "pub_usrcode", nullable = false)
+  private User user;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  @ManyToOne
+  @JoinColumn(name = "pub_catcode", nullable = false)
+  private Category category;
 
-    public Category getCategory() {
-        return category;
-    }
+  @Transient
+  private int categoryCode;
 
-    public void setCategory(Category category) {
-        this.category = category;
-        updateCode();
+  @PostLoad
+  private void updateCode() {
+    if (null != category) {
+      categoryCode = category.getId();
     }
+  }
 
-    public int getCategoryCode() {
-        return categoryCode;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setCategoryCode(int categoryCode) {
-        this.categoryCode = categoryCode;
-    }
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public Category getCategory() {
+    return category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+    updateCode();
+  }
+
+  public int getCategoryCode() {
+    return categoryCode;
+  }
+
+  public void setCategoryCode(int categoryCode) {
+    this.categoryCode = categoryCode;
+  }
 
   public byte[] getData() {
     return data;

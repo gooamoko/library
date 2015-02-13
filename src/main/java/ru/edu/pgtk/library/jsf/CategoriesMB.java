@@ -6,7 +6,7 @@ import javax.faces.bean.ViewScoped;
 import ru.edu.pgtk.library.ejb.CategoriesEJB;
 import ru.edu.pgtk.library.entity.Category;
 
-@ManagedBean(name = "categoriesBean")
+@ManagedBean(name = "categoriesMB")
 @ViewScoped
 public class CategoriesMB extends GenericBean<Category> {
   
