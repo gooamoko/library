@@ -49,6 +49,7 @@ public class UsersMB extends GenericBean<User> implements Serializable {
   public void save() {
     try {
       if ((null != item) && edit) {
+        item.updatePassword();
         ejb.save(item);
         resetState();
       }

@@ -59,6 +59,8 @@
             <h:inputSecret value="#{usersMB.item.password}" class="textEdit" /><p />
             <h:outputText value="Подтверждение" /><br />
             <h:inputSecret value="#{usersMB.item.confirm}" class="textEdit" /><p />
+            <h:selectBooleanCheckbox value="#{usersMB.item.admin}" />
+            <h:outputText value="Полномочия администратора" /><p />
           </h:panelGroup>
           <div class="buttons">
             <h:commandButton value="Сохранить" action="#{usersMB.save()}" />
