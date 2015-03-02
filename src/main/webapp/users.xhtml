@@ -52,6 +52,8 @@
           </h:panelGroup>
           <h:outputText value="Фамилия Имя Отчество" /><br />
           <h:inputText value="#{usersMB.item.fullName}" class="textEdit" /><p />
+          <h:selectBooleanCheckbox value="#{usersMB.item.admin}" />
+          <h:outputText value="Пользователь является администратором" /><p />
           <h:panelGroup rendered ="#{usersMB.item.id == 0}">
             <h:outputText value="Логин" /><br />
             <h:inputText value="#{usersMB.item.login}" class="textEdit" /><p />
