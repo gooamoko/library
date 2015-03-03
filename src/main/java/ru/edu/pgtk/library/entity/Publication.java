@@ -1,6 +1,7 @@
 package ru.edu.pgtk.library.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @Entity
@@ -25,6 +27,10 @@ public class Publication implements Serializable {
 
   @Column(name = "pub_name", nullable = false, length = 128)
   private String name;
+  
+  @Column(name = "pub_timestamp", nullable = false)
+  @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+  private Date timestamp;
 
   @Column(name = "pub_description", length = 255)
   private String description;
@@ -64,6 +70,14 @@ public class Publication implements Serializable {
 
   public String getName() {
     return name;
+  }
+
+  public Date getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(Date timestamp) {
+    this.timestamp = timestamp;
   }
 
   public void setName(String name) {

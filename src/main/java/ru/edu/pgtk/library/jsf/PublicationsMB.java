@@ -1,6 +1,7 @@
 package ru.edu.pgtk.library.jsf;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -37,6 +38,7 @@ public class PublicationsMB extends GenericBean<Publication> implements Serializ
         item.setUser(user);
         item.setFileName("");
         item.setContentType("");
+        item.setTimestamp(new Date());
         edit = true;
       } else {
         addMessage("Вы не можете добавить публикацию!");

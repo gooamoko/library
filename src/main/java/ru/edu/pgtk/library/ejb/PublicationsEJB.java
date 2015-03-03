@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import ru.edu.pgtk.library.entity.Category;
 import ru.edu.pgtk.library.entity.Publication;
+import ru.edu.pgtk.library.entity.User;
 
 @Stateless
 @Named("publicationsEJB")
@@ -28,6 +29,13 @@ public class PublicationsEJB {
   public List<Publication> fetchAll() {
     TypedQuery<Publication> q = em.createQuery(
             "SELECT p FROM Publication p ORDER BY p.name", Publication.class);
+    return q.getResultList();
+  }
+  
+  public List<Publication> findByUser(final User user) {
+    TypedQuery<Publication> q = em.createQuery(
+            "SELECT p FROM Publication p WHERE (p.user = :u) ORDER BY p.name", Publication.class);
+    q.setParameter("u", user);
     return q.getResultList();
   }
   
