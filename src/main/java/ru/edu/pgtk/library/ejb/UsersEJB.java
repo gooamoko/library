@@ -25,6 +25,12 @@ public class UsersEJB {
   }
   
   public User get(final String login, final String password) {
+    if ((null == login) || (login.isEmpty())) {
+      throw new EJBException("Login must not be empty or null!");
+    }
+    if ((null == password) || (password.isEmpty())) {
+      throw new EJBException("Password must not be empty or null!");
+    }
     TypedQuery<User> q = em.createQuery(
             "SELECT p FROM User p WHERE (p.login LIKE :l) AND (p.passwordHash LIKE :p)", User.class);
     q.setParameter("l", login);
@@ -34,6 +40,12 @@ public class UsersEJB {
   
   public List<User> fetchAll() {
     TypedQuery<User> q = em.createQuery("SELECT p FROM User p", User.class);
+    return q.getResultList();
+  }
+
+  public List<User> fetchAdmins() {
+    TypedQuery<User> q = em.createQuery(
+      "SELECT p FROM User p WHERE (p.admin = true)", User.class);
     return q.getResultList();
   }
   

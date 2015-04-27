@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import ru.edu.pgtk.library.entity.Category;
 
 public class CategoriesEJBTest {
@@ -58,6 +59,7 @@ public class CategoriesEJBTest {
     }
   }
 
+  @Ignore
   @Test
   public void testFindByName() throws Exception {
     try {

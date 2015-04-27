@@ -22,5 +22,4 @@ public class Utils {
       throw new EJBException("Can't compute password hash!");
     }
   }
-
 }

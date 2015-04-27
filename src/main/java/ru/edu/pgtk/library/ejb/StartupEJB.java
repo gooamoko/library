@@ -17,15 +17,12 @@ import ru.edu.pgtk.library.entity.User;
 public class StartupEJB {
 
   @EJB
-  private UsersEJB personEJB;
+  private UsersEJB persons;
 
   @PostConstruct
   private void setupApplication() {
     try {
-      // Возможно, в будущем стоит заменить эту строку на
-      // вызов метода, возвращающего количество пользователей
-      // со статусом администратора.
-      if (personEJB.fetchAll().isEmpty()) {
+      if (persons.fetchAdmins().isEmpty()) {
         User admin = new User();
         admin.setAdmin(true);
         admin.setFullName("Администратор проекта");
@@ -33,7 +30,7 @@ public class StartupEJB {
         admin.setPassword("admin");
         admin.setConfirm("admin");
         admin.updatePassword();
-        personEJB.save(admin);
+        persons.save(admin);
       }
     } catch (Exception e) {
       // Ничего не делаем
@@ -44,5 +41,4 @@ public class StartupEJB {
   private void shutdownApplication() {
     // Может что-то и будет в дальнейшем, но пока ничего тут делать не надо
   }
-
 }

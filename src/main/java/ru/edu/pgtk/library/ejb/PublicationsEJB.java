@@ -1,6 +1,7 @@
 package ru.edu.pgtk.library.ejb;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -17,6 +18,8 @@ public class PublicationsEJB {
 
   @PersistenceContext(unitName = "defaultPU")
   private EntityManager em;
+  @EJB
+  private CategoriesEJB categories;
 
   public Publication get(final int id) {
     Publication result = em.find(Publication.class, id);
@@ -41,12 +44,7 @@ public class PublicationsEJB {
   
   public Publication save(Publication item) {
     if (item.getCategoryCode() > 0) {
-      Category c = em.find(Category.class, item.getCategoryCode());
-      if (null != c) {
-        item.setCategory(c);
-      } else {
-        throw new EJBException("Category not found with id " + item.getCategoryCode());
-      }
+      item.setCategory(categories.get(item.getCategoryCode()));
     } else {
       throw new EJBException("Wrong category code " + item.getCategoryCode());
     }
