@@ -12,30 +12,35 @@
     <div id="top-panel">
       <!-- Top menu -->
       <div id="top-menu">
-        <ul>
-          <li><a href="#">Справка</a>
-            <ul>
-              <li><h:link value="О проекте" outcome="/about" /></li>
-            </ul>
-          </li>
-          <h:panelGroup rendered="#{sessionMB.logged}">
-          <li><a href="#">Ресурсы</a>
-            <ul>
-              <li><h:link value="Категории" outcome="/categories" /></li>
-              <li><h:link value="Публикации" outcome="/publications" /></li>
-            </ul>
-          </li>
-          </h:panelGroup>
-          <h:panelGroup rendered="#{sessionMB.admin}">
-          <li><h:link value="Пользователи" outcome="/users" /></li>
-          </h:panelGroup>
-          <li>
-            <h:link rendered="#{not sessionMB.logged}" value="Вход" outcome="/loginform" />
-            <h:form  rendered="#{sessionMB.logged}">
-              <h:commandLink value="Выход" action="#{sessionMB.doLogout()}" />
-            </h:form>
-          </li>
-        </ul>
+        <h:form id="menuForm">
+          <ul>
+            <li><a href="#">Справка</a>
+              <ul>
+                <li><h:link value="О проекте" outcome="/about" /></li>
+              </ul>
+            </li>
+            <h:panelGroup rendered="#{sessionMB.logged}">
+              <li><a href="#">Ресурсы</a>
+                <ul>
+                  <li><h:link value="Категории" outcome="/categories" /></li>
+                  <li><h:link value="Публикации" outcome="/publications" /></li>
+                  <h:panelGroup rendered="#{sessionMB.admin}">
+                    <li><h:link value="Пользователи" outcome="/users" /></li>
+                  </h:panelGroup>
+                </ul>
+              </li>
+              <li><a href="#">#{sessionMB.user.fullName}</a>
+                <ul>
+                  <li><h:link value="Смена пароля" outcome="/newpassword" /></li>
+                  <li><h:commandLink value="Выход" action="#{sessionMB.doLogout()}" /></li>
+                </ul>
+              </li>
+            </h:panelGroup>
+            <li>
+              <h:link rendered="#{not sessionMB.logged}" value="Вход" outcome="/loginform" />
+            </li>
+          </ul>
+        </h:form>
       </div>
       <!-- End top menu -->
     </div>

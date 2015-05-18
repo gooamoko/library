@@ -31,17 +31,30 @@ public class SessionMB implements Serializable {
     String message = "Exception class " + e.getClass().getName() + " with message " + e.getMessage();
     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, "Error"));
   }
-  
+
   public String doLogin() {
     user = usersBean.get(login, password);
     return "/index";
   }
-  
+
   public String doLogout() {
     user = null;
     return "/index";
   }
-  
+
+  public String changePassword() {
+    try {
+      // Обновляем пароль и сохраняем пользователя
+      user.updatePassword();
+      usersBean.save(user);
+      return "/index";
+    } catch (Exception e) {
+      // Скорее всего парль не совпадает с подтверждением
+      addMessage(e);
+      return null;
+    }
+  }
+
   public void download(Publication item) throws IOException {
     // Get the FacesContext
     FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -60,7 +73,7 @@ public class SessionMB implements Serializable {
     }
     facesContext.responseComplete();
   }
-  
+
   public String getLogin() {
     return login;
   }
@@ -76,7 +89,7 @@ public class SessionMB implements Serializable {
   public void setPassword(String password) {
     this.password = password;
   }
-  
+
   public User getUser() {
     return user;
   }
@@ -84,7 +97,7 @@ public class SessionMB implements Serializable {
   public boolean isLogged() {
     return user != null;
   }
-  
+
   public boolean isAdmin() {
     return (null != user) && user.isAdmin();
   }
